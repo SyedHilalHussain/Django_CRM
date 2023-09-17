@@ -1,13 +1,59 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="col-md-6 offset-md-3">
+<div class="row  justify-content-center">
   {% if user.is_authenticated %}
 
-  <h1>Hello World</h1>
+  <h1></h1>
 
+{% if records %}
+<a href="{% url 'add_record' %}"><button type="button" class="btn btn-secondary">ADD RECORD</button></a>
+      
+<div class="table-responsive">
+   
+    <table class="table table-striped-columns my-4">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">created_at</th>
+            <th scope="col">first_name</th>
+            <th scope="col">last_name</th>
+            <th scope="col">email</th>
+            <th scope="col">phone</th>
+            <th scope="col">address</th>
+            <th scope="col">city</th>
+            <th scope="col">state</th>
+            <th scope="col">zip_code</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+          <tr>
+           <td scope="row"> <a href="{% url 'record' record.id %}">{{record.id}}</a></td>
+            <td scope="row">{{record.created_at}}</td>
+            <td scope="row">{{record.first_name}}</td>
+            <td scope="row">{{record.last_name}}</td>
+            <td scope="row">{{record.email}}</td>
+            <td scope="row">{{record.phone}}</td>
+            <td scope="row">{{record.address}}</td>
+            <td scope="row">{{record.city}}</td>
+            <td scope="row">{{record.state}}</td>
+            <td scope="row">{{record.zip_code}}</td>
+            <td style="white-space:nowrap;"><a href="{% url 'delete_record'  record.id  %}" class="btn btn-sm btn-danger">Delete</a>
+                <a href="{% url 'update_record'  record.id  %}" class="btn btn-sm btn-primary">Update</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+  
+</div>
+{% endif %}
   {% else %}
 
   <h1>Login</h1>
+  <div class="col-md-6">
   <form action="{% url 'home' %}" method="post">
     {% csrf_token %}
 
@@ -35,7 +81,9 @@
     <br />
     <button type="submit" class="btn btn-secondary">Login</button>
   </form>
+</div>
   {% endif %}
+
 </div>
 
-{% endblock %}
+{% endblock content %}

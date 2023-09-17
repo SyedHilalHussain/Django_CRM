@@ -1,21 +1,23 @@
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User
+from .models import Record 
+from django import forms
 
 
-class SignupForm(UserCreationForm):
+
+class SignUpForm(UserCreationForm):
     email =forms.EmailField(label="",widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'Email'}))
 
-    first_name =forms.charField(label="",max_length=30 , widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'First Name'}))
-    last_name =forms.charField(label="",max_length=30 , widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'First Name'}))
+    first_name =forms.CharField(label="",max_length=30 , widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'First Name'}))
+    last_name =forms.CharField(label="",max_length=30 , widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'Last Name'}))
 
 
     class Meta:
         model = User
-        field = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
 
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
-
         self.fields['username'].widget.attrs['class'] = 'form-control'
         self.fields['username'].widget.attrs['placeholder'] = 'User Name'
         self.fields['username'].label = ''
@@ -28,3 +30,15 @@ class SignupForm(UserCreationForm):
         self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
         self.fields['password2'].label = ''
         self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'	
+
+class RecordForm(forms.ModelForm):
+    class Meta:
+        model = Record
+        fields ='__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        # Apply the 'form-control' class to all form fields
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs['class'] = 'form-control'

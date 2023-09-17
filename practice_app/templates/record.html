@@ -1,0 +1,77 @@
+{% extends 'base.html' %} {% block content %}
+<div class="row justify-content-center">
+    {% if customer_record %}
+    <div class="table-responsive col-md-6">
+
+        <table class="table table-striped-columns my-4 border-dark border">
+            <thead class="table-dark">
+                <tr>
+
+                    <th scope="col">Field </th>
+                    <th scope="col">Data</th>
+
+
+
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="col">created_at</th>
+                    <td scope="row">{{customer_record.created_at}}</td>
+
+                </tr>
+                <th scope="col">first_name</th>
+                <td scope="row">{{customer_record.first_name}}</td>
+
+                </tr>
+                <tr>
+                    <th scope="col">last_name</th>
+                    <td scope="row">{{customer_record.last_name}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">email</th>
+                    <td scope="row">{{customer_record.email}}</td>
+                </tr>
+                <tr>
+
+                    <th scope="col">phone</th>
+                    <td scope="row">{{customer_record.phone}}</td>
+                </tr>
+                
+                <tr>
+                    <th scope="col">address</th>
+                    <td scope="row">{{customer_record.address}}</td>
+                </tr>
+
+                <tr>
+                    <th scope="col">city</th>
+                    <td scope="row">{{customer_record.city}}</td>
+                </tr>
+
+                <tr>
+                <th scope="col">state</th>
+                <td scope="row">{{customer_record.state}}</td>
+                </tr>
+
+                <tr>
+                    <th scope="col">zip_code</th>
+                    <td scope="row">{{customer_record.zip_code}}</td>
+
+                </tr>
+
+            </tbody>
+        </table>
+<div>
+    <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+    
+</div>
+
+    </div>
+    {% endif %}
+</div>
+
+
+{% endblock %}
